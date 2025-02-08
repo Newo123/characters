@@ -6,7 +6,7 @@ import Home from './routes/home';
 function App() {
 	return (
 		<Routes>
-			<Route path='/' element={<Home />} />
+			<Route path='/:page?' element={<Home />} />
 			<Route path='/favorites' element={<Favorites />} />
 			<Route path='/characters/:character' element={<Character />} />
 		</Routes>
