@@ -1,6 +1,6 @@
-import { charackerService } from '@/services/CharacterService';
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router';
+import { charackerService } from '@/services/CharacterService'
+import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'react-router'
 
 export default function Page() {
 	const { character } = useParams();
@@ -13,7 +13,6 @@ export default function Page() {
 	if (isFetching) {
 		return <div>Loading...</div>;
 	}
-	console.log(data);
 
 	return (
 		<div className='container mx-auto px-[1rem] flex flex-col gap-[1.5rem]'>

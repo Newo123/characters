@@ -1,13 +1,5 @@
 import { CharecterList } from '@/components/CharacterList';
-import {
-	Pagination,
-	PaginationContent,
-	PaginationEllipsis,
-	PaginationItem,
-	PaginationLink,
-	PaginationNext,
-	PaginationPrevious,
-} from '@/components/ui/pagination';
+import { ImprovedPagination } from '@/components/ImprovedPagination';
 import { ICharacterItem } from '@/types/character';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
@@ -23,8 +15,8 @@ export default function Page() {
 		queryFn: () => charackerService.getAll(searchParams),
 	});
 	useEffect(() => {
-		refetch();
 		setCurrentPage(parseInt(searchParams.get('page') || '1'));
+		refetch();
 	}, [searchParams]);
 
 	if (isFetching) {
@@ -41,78 +33,10 @@ export default function Page() {
 				<h1 className='text-3xl'>Список персонажей</h1>
 				<CharecterList characters={data?.results as ICharacterItem[]} />
 			</div>
-			<Pagination className='mt-20'>
-				<PaginationContent>
-					{currentPage !== 1 && (
-						<PaginationItem>
-							<PaginationPrevious
-								to={currentPage < 3 ? '' : `?page=${currentPage - 1}`}
-							/>
-						</PaginationItem>
-					)}
-
-					{currentPage > 2 && (
-						<PaginationItem>
-							<PaginationEllipsis />
-						</PaginationItem>
-					)}
-
-					<PaginationItem>
-						<PaginationLink
-							to={currentPage < 3 ? '' : `?page=${currentPage - 1}`}
-							isActive={currentPage === 1}
-						>
-							{currentPage === 1
-								? currentPage
-								: data?.info.pages !== currentPage
-								? currentPage - 1
-								: currentPage - 2}
-						</PaginationLink>
-					</PaginationItem>
-
-					<PaginationItem>
-						<PaginationLink
-							to='#'
-							isActive={currentPage !== 1 && data?.info.pages !== currentPage}
-						>
-							{currentPage === 1
-								? currentPage + 1
-								: currentPage === data?.info.pages
-								? currentPage - 1
-								: currentPage}
-						</PaginationLink>
-					</PaginationItem>
-
-					<PaginationItem>
-						<PaginationLink
-							to={
-								currentPage === data?.info.pages
-									? `?page=${currentPage}`
-									: `?page=${currentPage + 1}`
-							}
-							isActive={data?.info.pages === currentPage}
-						>
-							{currentPage === 1
-								? currentPage + 2
-								: currentPage !== data?.info.pages
-								? currentPage + 1
-								: currentPage}
-						</PaginationLink>
-					</PaginationItem>
-
-					{data?.info.pages && currentPage < data?.info?.pages && (
-						<PaginationItem>
-							<PaginationEllipsis />
-						</PaginationItem>
-					)}
-
-					{data?.info.pages && currentPage !== data?.info.pages && (
-						<PaginationItem>
-							<PaginationNext to={`?page=${currentPage + 1}`} />
-						</PaginationItem>
-					)}
-				</PaginationContent>
-			</Pagination>
+			<ImprovedPagination
+				currentPage={currentPage}
+				totalPages={data?.info.pages || 1}
+			/>
 		</>
 	);
 }
