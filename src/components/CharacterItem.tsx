@@ -1,4 +1,4 @@
-import { useLocalStore } from '@/hooks/useLocalStore';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { ICharacterItem } from '@/types/character';
 import { Heart } from 'lucide-react';
 import { Link } from 'react-router';
@@ -6,9 +6,8 @@ import { Card, CardContent, CardHeader } from './ui/card';
 import { Toggle } from './ui/toggle';
 
 export function CharacterItem({ id, name, image }: ICharacterItem) {
-	const { remove, set, getAll } = useLocalStore();
-	const isFavorite = getAll()?.find(item => item.id === id);
-
+	const { addItem, items, removeItem } = useLocalStorage();
+	const isFavorite = items.some(item => item.id === id);
 	return (
 		<Card key={id}>
 			<CardHeader>
@@ -36,11 +35,9 @@ export function CharacterItem({ id, name, image }: ICharacterItem) {
 				<Toggle
 					aria-label='Toggle italic'
 					className='w-fit'
-					defaultPressed={isFavorite ? true : false}
+					defaultPressed={isFavorite}
 					onPressedChange={pressed =>
-						pressed
-							? set({ id: id, name: name, image: image })
-							: remove({ id, name, image })
+						pressed ? addItem({ id, name, image }) : removeItem(id)
 					}
 				>
 					<Heart className='w-full h-full' />

@@ -1,4 +1,4 @@
-import { CharacterItem } from '@/components/CharacterItem';
+import { CharecterList } from '@/components/CharacterList';
 import {
 	Pagination,
 	PaginationContent,
@@ -9,23 +9,19 @@ import {
 	PaginationPrevious,
 } from '@/components/ui/pagination';
 import { ICharacterItem } from '@/types/character';
-import { QueryClient, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { charackerService } from '../services/CharacterService';
 export default function Page() {
-	const [searchParams, setSearchParams] = useSearchParams();
-	const queryClient = new QueryClient();
+	const [searchParams] = useSearchParams();
 	const [currentPage, setCurrentPage] = useState<number>(
 		parseInt(searchParams.get('page') || '1')
 	);
-	const { data, isFetching, refetch, error } = useQuery(
-		{
-			queryKey: ['characters'],
-			queryFn: () => charackerService.getAll(searchParams),
-		},
-		queryClient
-	);
+	const { data, isFetching, refetch, error } = useQuery({
+		queryKey: ['characters'],
+		queryFn: () => charackerService.getAll(searchParams),
+	});
 	useEffect(() => {
 		refetch();
 		setCurrentPage(parseInt(searchParams.get('page') || '1'));
@@ -40,14 +36,10 @@ export default function Page() {
 	}
 
 	return (
-		<main className='py-[2.5rem]'>
+		<>
 			<div className='container mx-auto px-[1rem] flex flex-col gap-[1.5rem]'>
-				<h1 className='text-3xl'>Character list</h1>
-				<div className='grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid gap-4'>
-					{data?.results.map((item: ICharacterItem) => (
-						<CharacterItem {...item} key={item.id} />
-					))}
-				</div>
+				<h1 className='text-3xl'>Список персонажей</h1>
+				<CharecterList characters={data?.results as ICharacterItem[]} />
 			</div>
 			<Pagination className='mt-20'>
 				<PaginationContent>
@@ -121,6 +113,6 @@ export default function Page() {
 					)}
 				</PaginationContent>
 			</Pagination>
-		</main>
+		</>
 	);
 }

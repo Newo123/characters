@@ -28,3 +28,9 @@ export interface ICharacter {
 	info: ICharacterInfo;
 	results: ICharacterItem[];
 }
+
+export interface ILocalStorageContextType {
+	items: ICharacterItem[];
+	addItem: (item: ICharacterItem) => void;
+	removeItem: (id: number) => void;
+}
