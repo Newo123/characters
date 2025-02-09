@@ -1,24 +1,10 @@
 import { ROUTES } from '@/constants';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { ICharacterItem } from '@/types/character';
 import { Link } from 'react-router';
-import { toast } from 'sonner';
 import { AddToFavorites } from './AddToFavorites';
 import { Card, CardContent, CardHeader } from './ui/card';
 
 export function CharacterItem({ id, name, image }: ICharacterItem) {
-	const { addItem, items, removeItem } = useLocalStorage();
-	const isFavorite = items.some(item => item.id === id);
-
-	const toggleFavorites = (pressed: boolean) => {
-		if (pressed) {
-			addItem({ id, name, image });
-			toast(`${name} добавлено в избранное`);
-		} else {
-			removeItem(id);
-			toast(`${name} удалено из избранного`);
-		}
-	};
 	return (
 		<Card key={id}>
 			<CardHeader>
