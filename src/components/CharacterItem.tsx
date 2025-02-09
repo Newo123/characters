@@ -24,7 +24,7 @@ export function CharacterItem({ id, name, image }: ICharacterItem) {
 			</CardHeader>
 			<CardContent className='flex flex-row items-center justify-between'>
 				<Link
-					to={`/characters/${id}`}
+					to={`${ROUTES.CHARACTER}/${id}`}
 					className='text-lg font-semibold underline hover:no-underline'
 				>
 					{name}
