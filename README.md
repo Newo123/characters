@@ -1,50 +1,75 @@
-# React + TypeScript + Vite
+# Список персонажей из вселенной популярного мультфильма "Рик и Морти"
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![screenshot](/public/poster.jpg)
 
-Currently, two official plugins are available:
+## В проекте реализовано:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Страница с сеткой персонажей
+   ![screenshot](/public/1.png)
+2. Страница с избранными персонажами (визуализация сетки персонажей была взяла из главной страницы)
+3. Страница отдельного персонажа
+   ![screenshot](/public/2.png)
+4. Фильтрация через поле ввода по имени персонажей
+5. Постраничная пагинация
+6. Добавление в избранное через локальное хранилище браузера (localStorage)
 
-## Expanding the ESLint configuration
+## Информация для запуска проекта в локальной среде
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 1. Клонируем репозиторий или выкачиваем zip архив
 
-- Configure the top-level `parserOptions` property like this:
+Команда для клонирования
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```cmd
+git clone https://github.com/Newo123/characters.git <folder>
+cd <folder>
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2. Установка пакетов
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+NPM
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```cmd
+npm install
 ```
+
+YARN
+
+```cmd
+yarn install
+```
+
+PNPM
+
+```cmd
+pnpm install
+```
+
+### 3. Команды запуска проекта в локальной среде
+
+NPM
+
+```cmd
+npm run dev
+```
+
+YARN
+
+```cmd
+yarn dev
+```
+
+PNPM
+
+```cmd
+pnpm dev
+```
+
+## Стек технологий
+
+1. Reactjs + typescript
+2. Для стилизации tailwindcss, shadcn, radix-ui
+3. Для запросов к серверу и динамического обновления контента - axios, tanstack react query
+
+## REST API
+
+https://rickandmortyapi.com
